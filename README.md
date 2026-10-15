@@ -119,4 +119,5 @@ Une rame en intervention de maintenance un jour donné ne peut pas assurer de ci
 | 33 | Durée d'intervention | Durée de l'intervention, en heures | Décimal | 4 |
 
 # Modèle Conceptuel de Données
-<img width="880" alt="image" src="https://github.com/user-attachments/assets/d268458b-4e2f-4b15-8655-8afc6a7be512" />
+<img width="880" alt="MCD - Modèle Conceptuel de Données" src="https://github.com/user-attachments/assets/1d1bc35f-35db-4c02-8f75-6cc65fa25801" />
+
