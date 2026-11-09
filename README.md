@@ -134,6 +134,7 @@ Circulation = (Numéro_circulation DECIMAL(8,0), Date_de_circulation DATE, Type_
 Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_réservation DATE, Prix_payé DECIMAL(7,0), Statut_de_la_réservation VARCHAR(12));
 Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
 Participer = (#Matricule_Agent, #Numéro_d_intervention);
+```
 
 
 ## Prompt à soumis à l'IA
@@ -173,3 +174,4 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 ### FORMAT DE SORTIE ATTENDU
 Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
 Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
+```
