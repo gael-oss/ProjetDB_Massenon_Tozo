@@ -1,6 +1,6 @@
 # ProjetDB_Massenon_Tozo
 
-#### I
+#### I- Première étape : analyse des besoins
 # Prompt final Utilisé
 Tu travailles dans le domaine du transport ferroviaire de voyageurs. Ton entreprise a comme activité l'exploitation de trains, la gestion des gares et la vente de places aux voyageurs. C'est une entreprise de transport à capital public comme la SNCF. Les données ont été collectées sur les gares, les circulations de trains, les rames, les places, les voyageurs, les réservations, les agents et les interventions de maintenance. Inspire-toi du site web de la SNCF et de ton expérience de voyageur. 
 
@@ -120,11 +120,11 @@ Une rame en intervention de maintenance un jour donné ne peut pas assurer de ci
 | 32 | Nature d'intervention | Révision, réparation ou nettoyage | Texte | 20 |
 | 33 | Durée d'intervention | Durée de l'intervention, en heures | Décimal | 4 |
 
-#### II
+#### II-  Deuxième étape : MCD
 # Modèle Conceptuel de Données
 <img width="880" alt="MCD - Modèle Conceptuel de Données" src="https://github.com/user-attachments/assets/1d1bc35f-35db-4c02-8f75-6cc65fa25801" />
 
-#### III
+#### III- Troisième étape : MLD et MPD
 # Modèle Logique de données
 ```text
 Gare = (Code_Uic_gare DECIMAL(8,0), nom_gare VARCHAR(40), Ville_gare VARCHAR(30), Nombre_de_voies_gare DECIMAL(2,0));
@@ -140,7 +140,7 @@ Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TI
 Participer = (#Matricule_Agent, #Numéro_d_intervention);
 ```
 
-#### IV
+#### IV- Quatrième étape : insertion des données
 
 ## Prompt à soumis à l'IA
 
@@ -223,7 +223,7 @@ L'analyste doit être en mesure d'extraire les informations suivantes :
    - Gares ayant le plus grand nombre d'agents rattachés.
   
 
-#### V
+#### V- Cinquième étape : interrogation de la BD
 # Étude du plan d'exécution (Algèbre relationnelle)
 
 Pour illustrer l'optimisation des requêtes, nous étudions la requête suivante. Elle utilise **trois opérateurs de l'algèbre relationnelle** : la sélection (σ), la jointure (⨝) et l'agrégation (γ).
