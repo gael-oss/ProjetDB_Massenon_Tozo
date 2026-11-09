@@ -135,11 +135,10 @@ Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_r
 Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
 Participer = (#Matricule_Agent, #Numéro_d_intervention);
 
-# Prompt de génération de données
 
-Ce prompt a été utilisé pour générer automatiquement le jeu de données de test (fichier `3_insertion.sql`) à l'aide d'une IA générative.
+## Prompt à soumis à l'IA
 
-```text
+````text
 Tu es un expert en bases de données SQL (MySQL/MariaDB). 
 Je te fournis le schéma de ma base de données ferroviaire. 
 Ta mission est de générer un script SQL d'insertion (fichier 3_insertion.sql) contenant un nombre conséquent de données réalistes (au moins 50 lignes par table principale).
@@ -174,6 +173,3 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 ### FORMAT DE SORTIE ATTENDU
 Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
 Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
-
-
-
