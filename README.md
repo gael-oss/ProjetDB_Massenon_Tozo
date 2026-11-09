@@ -244,7 +244,7 @@ Pour simplifier les calculs de coût, nous posons les hypothèses suivantes sur 
 
 Ce plan effectue la jointure cartésienne des deux tables complètes, puis applique les filtres (sélections) et enfin l'agrégation.
 
-https://github.com/gael-oss/ProjetDB_Massenon_Tozo/blob/main/jointure_dabord.png
+https://raw.githubusercontent.com/gael-oss/ProjetDB_Massenon_Tozo/main/jointure_dabord.png
 
 Calcul du coût (nombre d'instructions) :
 
@@ -260,7 +260,8 @@ Calcul du coût (nombre d'instructions) :
 
 Ce plan applique les sélections (σ) le plus tôt possible pour réduire la taille des relations avant de faire la jointure. C'est ce que fait naturellement l'optimiseur de requêtes SQL.
 
-https://./images/selection_avant_jointure.png
+https://raw.githubusercontent.com/gael-oss/ProjetDB_Massenon_Tozo/main/selection_avant_jointure.png
+
 
 Calcul du coût (nombre d'instructions) :
 
