@@ -139,7 +139,6 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 
 ## Prompt à soumis à l'IA
 
-````text
 Tu es un expert en bases de données SQL (MySQL/MariaDB). 
 Je te fournis le schéma de ma base de données ferroviaire. 
 Ta mission est de générer un script SQL d'insertion (fichier 3_insertion.sql) contenant un nombre conséquent de données réalistes (au moins 50 lignes par table principale).
@@ -174,7 +173,7 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 ### FORMAT DE SORTIE ATTENDU
 Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
 Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
-````
+
 
 ## Scénario d'utilisation
 
@@ -215,3 +214,68 @@ L'analyste doit être en mesure d'extraire les informations suivantes :
 6. **Alertes maintenance :** 
    - Rames ayant subi plus de 3 interventions de type "réparation" dans l'année.
    - Gares ayant le plus grand nombre d'agents rattachés.
+  
+
+
+### 3. Étude du plan d'exécution (Algèbre relationnelle)
+
+Pour illustrer l'optimisation des requêtes, nous étudions la requête suivante. Elle utilise **trois opérateurs de l'algèbre relationnelle** : la sélection (σ), la jointure (⨝) et l'agrégation (γ).
+
+**Requête étudiée :** Nombre de réservations confirmées par type de service TGV INOUI.
+
+```sql
+SELECT c.Type_de_service, COUNT(*) AS nb_reservations
+FROM Réserver r
+INNER JOIN Circulation c ON r.Numéro_circulation = c.Numéro_circulation
+WHERE c.Type_de_service = 'TGV INOUI' AND r.Statut_de_la_réservation = 'confirmée'
+GROUP BY c.Type_de_service;
+```
+Pour simplifier les calculs de coût, nous posons les hypothèses suivantes sur le volume de données :
+
+    Table Circulation : 1 000 lignes au total.
+
+    Table Réserver : 10 000 lignes au total.
+
+    Sélection Type_de_service = 'TGV INOUI' : 200 lignes (20% des circulations).
+
+    Sélection Statut = 'confirmée' : 7 000 lignes (70% des réservations)
+
+# Arbre relationnel 1 : Plan neutre (Jointure d'abord)
+
+Ce plan effectue la jointure cartésienne des deux tables complètes, puis applique les filtres (sélections) et enfin l'agrégation.
+
+https://./images/jointure_dabord.png
+
+Calcul du coût (nombre d'instructions) :
+
+    Jointure (⨝) : 1 000 (Circulation) × 10 000 (Réserver) = 10 000 000 comparaisons.
+
+    Sélection (σ) sur le résultat : 10 000 000 lignes à parcourir.
+
+    Agrégation (γ) : Traitement des lignes restantes.
+
+    Total : ~10 000 000+ instructions. (Très coûteux)
+
+# Arbre relationnel 2 : Plan Optimisé (Sélections avant jointure)
+
+Ce plan applique les sélections (σ) le plus tôt possible pour réduire la taille des relations avant de faire la jointure. C'est ce que fait naturellement l'optimiseur de requêtes SQL.
+
+https://./images/selection_avant_jointure.png
+
+Calcul du coût (nombre d'instructions) :
+
+    Sélection (σ) sur Circulation : 1 000 lignes parcourues → 200 lignes retenues.
+
+    Sélection (σ) sur Réserver : 10 000 lignes parcourues → 7 000 lignes retenues.
+
+    Jointure (⨝) : 200 × 7 000 = 1 400 000 comparaisons.
+
+    Agrégation (γ) : Traitement des 1 400 000 lignes jointes.
+
+    Total : 1 000 + 10 000 + 1 400 000 = ~1 411 000 instructions.
+
+# Conclusion
+
+Le plan d'exécution optimisé est l'Arbre 2 (Sélections avant jointure).
+
+En appliquant les filtres (σ) avant la jointure, on réduit considérablement le nombre de lignes à traiter lors de la jointure (de 10 millions de comparaisons à 1,4 million). 
