@@ -135,5 +135,45 @@ Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_r
 Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
 Participer = (#Matricule_Agent, #Numéro_d_intervention);
 
+# Prompt de génération de données
+
+Ce prompt a été utilisé pour générer automatiquement le jeu de données de test (fichier `3_insertion.sql`) à l'aide d'une IA générative.
+
+```text
+Tu es un expert en bases de données SQL (MySQL/MariaDB). 
+Je te fournis le schéma de ma base de données ferroviaire. 
+Ta mission est de générer un script SQL d'insertion (fichier 3_insertion.sql) contenant un nombre conséquent de données réalistes (au moins 50 lignes par table principale).
+
+### SCHÉMA DE LA BASE (MPD)
+Gare = (Code_Uic_gare DECIMAL(8,0), nom_gare VARCHAR(40), Ville_gare VARCHAR(30), Nombre_de_voies_gare DECIMAL(2,0));
+Rame = (Numéro_de_rame VARCHAR(6), Modèle_de_rame VARCHAR(20), Année_de_mise_en_service DECIMAL(4,0));
+Voiture = (Numéro_de_voiture DECIMAL(2,0), #Numéro_de_rame);
+Place = (Numéro_de_place_ DECIMAL(3,0), Classe_de_la_place VARCHAR(10), #Numéro_de_voiture);
+Voyageur = (Numéro_voyageur DECIMAL(8,2), Nom_voyageur VARCHAR(50), Prénom_voyageur VARCHAR(50), Adresse_e_mail_voyageur VARCHAR(60));
+Agent = (Matricule_Agent DECIMAL(6,0), Nom_agent VARCHAR(50), Fonction_agent VARCHAR(25), Date_embauche_ DATE, #Matricule_Agent_responsable*, #Code_Uic_gare);
+Intervention_ = (Numéro_d_intervention DECIMAL(8,0), Date_d_intervention DATE, Nature_intervention VARCHAR(20), Durée_d_intervention DECIMAL(4,0), #Numéro_de_rame);
+Circulation = (Numéro_circulation DECIMAL(8,0), Date_de_circulation DATE, Type_de_service VARCHAR(15), Heure_de_départ TIME, Heure_d_arrivee TIME, Retard_à_l_arrivée VARCHAR(3), Motif_retard VARCHAR(50), #Numéro_de_rame, #Code_Uic_gare, #Code_Uic_gare_1);
+Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_réservation DATE, Prix_payé DECIMAL(7,0), Statut_de_la_réservation VARCHAR(12));
+Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
+Participer = (#Matricule_Agent, #Numéro_d_intervention);
+
+### CONTRAINTES À RESPECTER ABSOLUMENT
+1. L'ordre des INSERT doit respecter les dépendances (insérer les Gares, Rames, Voyageurs en premier, puis les tables dépendantes).
+2. Respecter les contraintes CHECK définies :
+   - Fonction_agent : 'conducteur', 'contrôleur', 'chef de bord', 'agent d''escale', 'technicien de maintenance'
+   - Nature_intervention : 'révision', 'réparation', 'nettoyage'
+   - Type_de_service : 'TGV INOUI', 'OUIGO', 'TER', 'Intercités'
+   - Classe_de_la_place : '1re classe', '2de classe'
+   - Statut_de_la_réservation : 'confirmée', 'annulée', 'échangée'
+   - Code_Uic_gare (départ) <> Code_Uic_gare_1 (arrivée)
+3. Règle métier : Au moins un conducteur et un contrôleur par circulation dans la table Affecter.
+4. Règle métier : La place réservée doit appartenir à la rame qui assure la circulation.
+5. Règle métier : Une rame en maintenance un jour J ne doit pas avoir de circulation ce même jour J.
+6. Le champ Matricule_Agent_responsable peut être NULL (seul le directeur n'a pas de responsable).
+
+### FORMAT DE SORTIE ATTENDU
+Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
+Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
+
 
 
