@@ -27,8 +27,6 @@ ADD CONSTRAINT chk_intervention_nature CHECK (Nature_intervention IN ('révision
 ADD CONSTRAINT chk_intervention_duree CHECK (Durée_d_intervention > 0);
 
 -- Contraintes sur la table Circulation
--- Note : La contrainte chk_circulation_gares (départ <> arrivée) a été retirée car MySQL interdit
--- l'utilisation de colonnes de clés étrangères avec CASCADE dans un CHECK.
 ALTER TABLE Circulation 
 ADD CONSTRAINT chk_circulation_service CHECK (Type_de_service IN ('TGV INOUI', 'OUIGO', 'TER', 'Intercités')),
 ADD CONSTRAINT chk_circulation_retard CHECK (Retard_à_l_arrivée IS NULL OR CAST(Retard_à_l_arrivée AS UNSIGNED) >= 0);
