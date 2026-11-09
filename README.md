@@ -174,7 +174,7 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 ### FORMAT DE SORTIE ATTENDU
 Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
 Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
-```
+````
 
 ## Scénario d'utilisation
 
