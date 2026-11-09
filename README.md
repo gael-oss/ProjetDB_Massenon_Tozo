@@ -122,26 +122,18 @@ Une rame en intervention de maintenance un jour donné ne peut pas assurer de ci
 <img width="880" alt="MCD - Modèle Conceptuel de Données" src="https://github.com/user-attachments/assets/1d1bc35f-35db-4c02-8f75-6cc65fa25801" />
 
 # Modèle Logique de données
-```markdown
-## Modèle Logique des Données (MLD)
-
-| Table | Attributs |
-| :--- | :--- |
-| **Gare** | `Code_Uic_gare` (DECIMAL(8,0)), `nom_gare` (VARCHAR(40)), `Ville_gare` (VARCHAR(30)), `Nombre_de_voies_gare` (DECIMAL(2,0)) |
-| **Rame** | `Numéro_de_rame` (VARCHAR(6)), `Modèle_de_rame` (VARCHAR(20)), `Année_de_mise_en_service` (DECIMAL(4,0)) |
-| **Voiture** | `Numéro_de_voiture` (DECIMAL(2,0)), `#Numéro_de_rame` |
-| **Place** | `Numéro_de_place_` (DECIMAL(3,0)), `Classe_de_la_place` (VARCHAR(10)), `#Numéro_de_voiture` |
-| **Voyageur** | `Numéro_voyageur` (DECIMAL(8,2)), `Nom_voyageur` (VARCHAR(50)), `Prénom_voyageur` (VARCHAR(50)), `Adresse_e_mail_voyageur` (VARCHAR(60)) |
-| **Agent** | `Matricule_Agent` (DECIMAL(6,0)), `Nom_agent` (VARCHAR(50)), `Fonction_agent` (VARCHAR(25)), `Date_embauche_` (DATE), `#Matricule_Agent_responsable*`, `#Code_Uic_gare` |
-| **Intervention_** | `Numéro_d_intervention` (DECIMAL(8,0)), `Date_d_intervention` (DATE), `Nature_intervention` (VARCHAR(20)), `Durée_d_intervention` (DECIMAL(4,0)), `#Numéro_de_rame` |
-| **Circulation** | `Numéro_circulation` (DECIMAL(8,0)), `Date_de_circulation` (DATE), `Type_de_service` (VARCHAR(15)), `Heure_de_départ` (TIME), `Heure_d_arrivee` (TIME), `Retard_à_l_arrivée` (VARCHAR(3)), `Motif_retard` (VARCHAR(50)), `#Numéro_de_rame`, `#Code_Uic_gare`, `#Code_Uic_gare_1` |
-| **Réserver** | `#Numéro_circulation`, `#Numéro_de_place_`, `#Numéro_voyageur`, `Date_réservation` (DATE), `Prix_payé` (DECIMAL(7,0)), `Statut_de_la_réservation` (VARCHAR(12)) |
-| **Affecter** | `#Numéro_circulation`, `#Matricule_Agent`, `Heure_de_prise_de_service` (TIME) |
-| **Participer** | `#Matricule_Agent`, `#Numéro_d_intervention` |
-
-> **Légende :** 
-> * `#` indique une clé étrangère (Foreign Key).
-> * `*` indique un attribut nullable (peut être NULL).
+```text
+Gare = (Code_Uic_gare DECIMAL(8,0), nom_gare VARCHAR(40), Ville_gare VARCHAR(30), Nombre_de_voies_gare DECIMAL(2,0));
+Rame = (Numéro_de_rame VARCHAR(6), Modèle_de_rame VARCHAR(20), Année_de_mise_en_service DECIMAL(4,0));
+Voiture = (Numéro_de_voiture DECIMAL(2,0), #Numéro_de_rame);
+Place = (Numéro_de_place_ DECIMAL(3,0), Classe_de_la_place VARCHAR(10), #Numéro_de_voiture);
+Voyageur = (Numéro_voyageur DECIMAL(8,2), Nom_voyageur VARCHAR(50), Prénom_voyageur VARCHAR(50), Adresse_e_mail_voyageur VARCHAR(60));
+Agent = (Matricule_Agent DECIMAL(6,0), Nom_agent VARCHAR(50), Fonction_agent VARCHAR(25), Date_embauche_ DATE, #Matricule_Agent_responsable*, #Code_Uic_gare);
+Intervention_ = (Numéro_d_intervention DECIMAL(8,0), Date_d_intervention DATE, Nature_intervention VARCHAR(20), Durée_d_intervention DECIMAL(4,0), #Numéro_de_rame);
+Circulation = (Numéro_circulation DECIMAL(8,0), Date_de_circulation DATE, Type_de_service VARCHAR(15), Heure_de_départ TIME, Heure_d_arrivee TIME, Retard_à_l_arrivée VARCHAR(3), Motif_retard VARCHAR(50), #Numéro_de_rame, #Code_Uic_gare, #Code_Uic_gare_1);
+Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_réservation DATE, Prix_payé DECIMAL(7,0), Statut_de_la_réservation VARCHAR(12));
+Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
+Participer = (#Matricule_Agent, #Numéro_d_intervention);
 
 
 
