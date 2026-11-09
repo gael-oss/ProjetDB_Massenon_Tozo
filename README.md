@@ -144,6 +144,7 @@ Je te fournis le schéma de ma base de données ferroviaire.
 Ta mission est de générer un script SQL d'insertion (fichier 3_insertion.sql) contenant un nombre conséquent de données réalistes (au moins 50 lignes par table principale).
 
 ### SCHÉMA DE LA BASE (MPD)
+```text
 Gare = (Code_Uic_gare DECIMAL(8,0), nom_gare VARCHAR(40), Ville_gare VARCHAR(30), Nombre_de_voies_gare DECIMAL(2,0));
 Rame = (Numéro_de_rame VARCHAR(6), Modèle_de_rame VARCHAR(20), Année_de_mise_en_service DECIMAL(4,0));
 Voiture = (Numéro_de_voiture DECIMAL(2,0), #Numéro_de_rame);
@@ -155,6 +156,7 @@ Circulation = (Numéro_circulation DECIMAL(8,0), Date_de_circulation DATE, Type_
 Réserver = (#Numéro_circulation, #Numéro_de_place_, #Numéro_voyageur, Date_réservation DATE, Prix_payé DECIMAL(7,0), Statut_de_la_réservation VARCHAR(12));
 Affecter = (#Numéro_circulation, #Matricule_Agent, Heure_de_prise_de_service TIME);
 Participer = (#Matricule_Agent, #Numéro_d_intervention);
+```
 
 ### CONTRAINTES À RESPECTER ABSOLUMENT
 1. L'ordre des INSERT doit respecter les dépendances (insérer les Gares, Rames, Voyageurs en premier, puis les tables dépendantes).
