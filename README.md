@@ -175,3 +175,43 @@ Participer = (#Matricule_Agent, #Numéro_d_intervention);
 Génère uniquement le code SQL, avec des commentaires pour séparer chaque table. 
 Utilise des données réalistes (villes françaises, noms francophones, modèles de trains réels).
 ```
+
+## Scénario d'utilisation
+
+###  Contexte
+
+La base de données ferroviaire est exploitée par la **SNCF** (Société Nationale des Chemins de fer Français). Plus précisément, elle est utilisée par la **Direction du Pilotage & de la Qualité (DPQ)**. 
+
+Ce service est chargé de surveiller la ponctualité des trains, la fréquentation des lignes, la disponibilité du matériel roulant et la performance des équipes. Les données extraites servent à produire des rapports stratégiques pour la direction, à optimiser l'offre de transport (TGV INOUI, OUIGO, TER, Intercités) et à anticiper les besoins en maintenance.
+
+###  Rôle de l'utilisateur : Analyste de données (Data Analyst)
+
+**Mission :** Interroger la base de données pour produire des tableaux de bord et des indicateurs de performance (KPI) destinés aux décideurs de la SNCF.
+
+###  Données à extraire
+
+L'analyste doit être en mesure d'extraire les informations suivantes :
+
+1. **Suivi de la ponctualité :** 
+   - Liste des circulations en retard (triées par retard décroissant), avec la gare de départ, d'arrivée et le motif.
+   - Identification des axes ferroviaires les plus impactés par les retards.
+
+2. **Occupation des places :** 
+   - Taux de remplissage des rames (nombre de places réservées / nombre total de places) pour une période donnée.
+   - Répartition des réservations par classe (1re ou 2de classe) et par type de service.
+
+3. **Disponibilité du matériel :** 
+   - Rames n'ayant fait l'objet d'aucune intervention de maintenance sur une période, afin de les affecter à de nouvelles circulations.
+   - Historique des interventions (révision, réparation, nettoyage) par rame.
+
+4. **Statistiques voyageurs :** 
+   - Répartition des réservations par statut (confirmées, annulées, échangées).
+   - Identification des voyageurs les plus fidèles (nombre de réservations par voyageur).
+
+5. **Performance des agents :** 
+   - Nombre de circulations affectées à chaque agent (conducteurs, contrôleurs, chefs de bord).
+   - Temps moyen de prise de service par gare.
+
+6. **Alertes maintenance :** 
+   - Rames ayant subi plus de 3 interventions de type "réparation" dans l'année.
+   - Gares ayant le plus grand nombre d'agents rattachés.
